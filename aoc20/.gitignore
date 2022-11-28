@@ -1,0 +1,13 @@
+# IntelliJ
+out/
+out/**
+out/*
+.idea/**
+.idea/*
+.idea/
+
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+
