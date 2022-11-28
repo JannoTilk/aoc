@@ -11,3 +11,5 @@ out/*
 .idea_modules/
 
 
+/.idea/
+/out/
