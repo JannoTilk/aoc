@@ -23,12 +23,13 @@ public class Day1 {
                     System.out.println("Part 1");
                     System.out.println(list.get(i) + " " + list.get(j));
                     System.out.println(list.get(i) * list.get(j));
+                    long timeAfter = System.currentTimeMillis();
+                    long elapsed = timeAfter - timeBefore;
+                    System.out.println("elapsed:" + elapsed);
+                    return;
                 }
             }
         }
-        long timeAfter = System.currentTimeMillis();
-        long elapsed = timeAfter - timeBefore;
-        System.out.println("elapsed:" + elapsed);
     }
 
     private static void part2(ArrayList<Integer> list) {
@@ -40,12 +41,13 @@ public class Day1 {
                         System.out.println("Part 2");
                         System.out.println(list.get(i) + " " + list.get(j) + " " + list.get(k));
                         System.out.println(list.get(i) * list.get(j) * list.get(k));
+                        long timeAfter = System.currentTimeMillis();
+                        long elapsed = timeAfter - timeBefore;
+                        System.out.println("elapsed:" + elapsed);
+                        return;
                     }
                 }
             }
         }
-        long timeAfter = System.currentTimeMillis();
-        long elapsed = timeAfter - timeBefore;
-        System.out.println("elapsed:" + elapsed);
     }
 }
