@@ -10,25 +10,37 @@ public class Day3 {
         while (s.hasNext()) {
             list.add(s.nextLine());
         }
-        System.out.println(list);
         s.close();
         part1(list);
-//        part2(list);
+        part2(list);
     }
 
     private static void part1(ArrayList<String> list) {
-        int rightCounter = 3;
+        System.out.println(treeCounter(list, 3, 1));
+    }
+
+    private static void part2(ArrayList<String> list) {
+        long encounter1 = treeCounter(list, 1, 1);
+        long encounter2 = treeCounter(list, 3, 1);
+        long encounter3 = treeCounter(list, 5, 1);
+        long encounter4 = treeCounter(list, 7, 1);
+        long encounter5 = treeCounter(list, 1, 2);
+        long multiply = encounter1 * encounter2 * encounter3 * encounter4 * encounter5;
+        System.out.println(multiply);
+    }
+
+    private static int treeCounter(ArrayList<String> list, int right, int down) {
+        int rightCounter = right;
         int treeCounter = 0;
-        for (int i = 1; i < list.size(); i++) {
+        for (int i = down; i < list.size(); i = i + down) {
             if (rightCounter > list.get(0).length() - 1) {
                 rightCounter = rightCounter - list.get(0).length();
-                System.out.println(list.get(i));
             }
             if (list.get(i).charAt(rightCounter) == '#') {
                 treeCounter++;
             }
-            rightCounter = rightCounter + 3;
+            rightCounter = rightCounter + right;
         }
-        System.out.println(treeCounter);
+        return treeCounter;
     }
 }
