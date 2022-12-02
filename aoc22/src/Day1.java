@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Day1 {
@@ -12,20 +11,30 @@ public class Day1 {
             list.add(s.nextLine());
         }
         s.close();
+
+        long timeBefore1 = System.currentTimeMillis();
         System.out.println(part1(list));
+        long timeAfter1 = System.currentTimeMillis();
+        long elapsed1 = timeAfter1 - timeBefore1;
+        System.out.println("elapsed:" + elapsed1);
+
+        long timeBefore2 = System.currentTimeMillis();
         System.out.println(part2(list));
+        long timeAfter2 = System.currentTimeMillis();
+        long elapsed2 = timeAfter2 - timeBefore2;
+        System.out.println("elapsed:" + elapsed2);
     }
 
     public static int part1(ArrayList<String> list) {
         int max = 0;
         int elfCalories = 0;
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).equals("")) {
+        for (String s : list) {
+            if (s.equals("")) {
                 max = Math.max(max, elfCalories);
                 elfCalories = 0;
                 continue;
             }
-            elfCalories = elfCalories + Integer.parseInt(list.get(i));
+            elfCalories = elfCalories + Integer.parseInt(s);
         }
         return max;
     }
@@ -35,8 +44,8 @@ public class Day1 {
         int max2 = 0;
         int max3 = 0;
         int elfCalories = 0;
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).equals("")) {
+        for (String s : list) {
+            if (s.equals("")) {
                 if (elfCalories > max1) {
                     max3 = max2;
                     max2 = max1;
@@ -50,7 +59,7 @@ public class Day1 {
                 elfCalories = 0;
                 continue;
             }
-            elfCalories = elfCalories + Integer.parseInt(list.get(i));
+            elfCalories = elfCalories + Integer.parseInt(s);
         }
         return max1 + max2 + max3;
     }
