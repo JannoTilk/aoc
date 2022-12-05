@@ -34,12 +34,12 @@ public class Day5 {
             int from = Integer.parseInt(splitted[3]);
             int to = Integer.parseInt(splitted[5]);
             for (int m = 0; m < move; m++) {
-                Character c = stackList.get(from-1).pop();
-                stackList.get(to-1).push(c);
+                Character c = stackList.get(from - 1).pop();
+                stackList.get(to - 1).push(c);
             }
         }
         StringBuilder sb = new StringBuilder();
-        for (Stack<Character> s: stackList) {
+        for (Stack<Character> s : stackList) {
             sb.append(s.peek());
         }
         return sb.toString();
@@ -48,6 +48,7 @@ public class Day5 {
     private static String part2(ArrayList<String> list) {
         List<Stack<Character>> stackList = createStacks(list);
 
+        // Change order
         for (int i = 10; i < list.size(); i++) {
             String[] splitted = list.get(i).split(" ");
             int move = Integer.parseInt(splitted[1]);
@@ -55,16 +56,16 @@ public class Day5 {
             int to = Integer.parseInt(splitted[5]);
             Stack<Character> tempStack = new Stack<>();
             for (int m = 0; m < move; m++) {
-                Character c = stackList.get(from-1).pop();
+                Character c = stackList.get(from - 1).pop();
                 tempStack.push(c);
             }
 
             for (int m = 0; m < move; m++) {
-                stackList.get(to-1).push(tempStack.pop());
+                stackList.get(to - 1).push(tempStack.pop());
             }
         }
         StringBuilder sb = new StringBuilder();
-        for (Stack<Character> s: stackList) {
+        for (Stack<Character> s : stackList) {
             sb.append(s.peek());
         }
         return sb.toString();
@@ -76,7 +77,6 @@ public class Day5 {
         for (int t = 0; t < 9; t++) {
             Stack<Character> stk = new Stack<>();
             stackList.add(stk);
-
         }
 
         // Initialize stacks
@@ -89,7 +89,6 @@ public class Day5 {
                 }
                 stackCounter++;
             }
-
         }
         return stackList;
     }
