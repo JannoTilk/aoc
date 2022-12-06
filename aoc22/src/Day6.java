@@ -26,11 +26,12 @@ public class Day6 {
 
     private static int comSystem(String input, int distinct) {
         char[] chars = input.toCharArray();
-
-        Queue<Character> q = createQueue(chars, distinct - 1);
+        int iterator = distinct - 1;
         int marker = 0;
 
-        for (int i = distinct - 1; i < chars.length - distinct - 1; i++) {
+        Queue<Character> q = createQueue(chars, iterator);
+
+        for (int i = iterator; i < chars.length - iterator; i++) {
             q.add(chars[i]);
             if (q.stream().distinct().count() == distinct) {
                 marker = i + 1;
