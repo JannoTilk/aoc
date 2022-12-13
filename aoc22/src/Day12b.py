@@ -26,11 +26,9 @@ e, t = end
 maze[e][t] = ord('z')
 minimum = sys.maxsize
 
-def make_step(k, trig):
+def make_step(k):
     counter = 0
     for i in range(len(m)):
-        if (trig == 1):
-            break
         for j in range(len(m[i])):
             if m[i][j] == k:
                 if i > 0 and m[i - 1][j] == 0 and maze[i - 1][j] - maze[i][j] <= 1:
@@ -63,7 +61,7 @@ for p in range(0, len(start)):
     k = 0
     while m[end[0]][end[1]] == 0:
         k += 1
-        make_step(k, trigger)
+        make_step(k)
         if (trigger == 1):
             break
     if (trigger == 1):
