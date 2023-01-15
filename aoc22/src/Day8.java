@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Day8 {
     public static void main(String[] args) throws FileNotFoundException {
-        Scanner s = new Scanner(new File("src/day8.txt"));
+        Scanner s = new Scanner(new File("/home/janno/workspace/aoc/aoc22/src/day8.txt"));
         ArrayList<String> list = new ArrayList<>();
         while (s.hasNext()) {
             list.add(s.nextLine());
