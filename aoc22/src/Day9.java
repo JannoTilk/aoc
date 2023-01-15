@@ -4,19 +4,19 @@ import java.util.*;
 
 public class Day9 {
     public static void main(String[] args) throws FileNotFoundException {
-//        Scanner s = new Scanner(new File("src/day9.txt"));
-        Scanner s = new Scanner(new File("src/day9_test.txt"));
+        Scanner s = new Scanner(new File("aoc22/src/day9.txt"));
+//        Scanner s = new Scanner(new File("aoc22/src/day9_test.txt"));
         ArrayList<String> list = new ArrayList<>();
         while (s.hasNext()) {
             list.add(s.nextLine());
         }
         s.close();
 
-//        long timeBefore1 = System.currentTimeMillis();
-//        System.out.println(part1(list));
-//        long timeAfter1 = System.currentTimeMillis();
-//        long elapsed1 = timeAfter1 - timeBefore1;
-//        System.out.println("elapsed:" + elapsed1);
+        long timeBefore1 = System.currentTimeMillis();
+        System.out.println(part1(list));
+        long timeAfter1 = System.currentTimeMillis();
+        long elapsed1 = timeAfter1 - timeBefore1;
+        System.out.println("elapsed:" + elapsed1);
 
         long timeBefore2 = System.currentTimeMillis();
         System.out.println(part2(list));
@@ -106,33 +106,26 @@ public class Day9 {
                     int currentTailLocationY = XY.get(k + 1).get(1);
 
 
+                    if (Math.abs(currentHeadLocationX - currentTailLocationX) < 2 && Math.abs(currentHeadLocationY - currentTailLocationY) < 2) {
+                        continue;
+                    }
 
-                    if (currentHeadLocationX - currentTailLocationX > 1) {
-                        currentTailLocationX++;
-                        currentTailLocationY = currentHeadLocationY;
-                    }
-                    if (currentTailLocationX - currentHeadLocationX > 1) {
-                        currentTailLocationX--;
-                        currentTailLocationY = currentHeadLocationY;
-                    }
-                    if (currentHeadLocationY - currentTailLocationY > 1) {
-                        currentTailLocationY++;
-                        currentTailLocationX = currentHeadLocationX;
-                    }
-                    if (currentTailLocationY - currentHeadLocationY > 1) {
-                        currentTailLocationY--;
-                        currentTailLocationX = currentHeadLocationX;
-                    }
+                    if (currentHeadLocationX > currentTailLocationX) currentTailLocationX++;
+                    if (currentHeadLocationX < currentTailLocationX) currentTailLocationX--;
+
+                    if (currentHeadLocationY > currentTailLocationY) currentTailLocationY++;
+                    if (currentHeadLocationY < currentTailLocationY) currentTailLocationY--;
+
                     List<Integer> tailXY = new ArrayList<>(Arrays.asList(currentTailLocationX, currentTailLocationY));
                     XY.set(k + 1, tailXY);
 
                     if (k == XY.size() - 2) {
                         List<Integer> tailLocation = XY.get(k + 1);
-                        if (!uniqueTailLocations.contains(tailLocation)) {
-                            int x = tailLocation.get(0);
-                            int y = tailLocation.get(0);
-                            System.out.println(tailLocation);
-                        }
+//                        if (!uniqueTailLocations.contains(tailLocation)) {
+//                            int x = tailLocation.get(0);
+//                            int y = tailLocation.get(1);
+//                            System.out.println("(" + y + ", " + x + ")");
+//                        }
                         uniqueTailLocations.add(tailLocation);
 //                        System.out.println(uniqueTailLocations);
                     }
@@ -140,7 +133,7 @@ public class Day9 {
             }
 
         }
-        System.out.println(uniqueTailLocations);
+//        System.out.println(uniqueTailLocations);
         return uniqueTailLocations.size();
 
     }
