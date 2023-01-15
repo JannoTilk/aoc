@@ -26,52 +26,53 @@ public class Day9 {
 
     }
 
-        private static int part1(List<String> input) {
+    private static int part1(List<String> input) {
         Set<List<Integer>> uniqueTailLocations = new HashSet<>();
         uniqueTailLocations.add(new ArrayList<>(Arrays.asList(0, 0)));
         List<Integer> XY = new ArrayList<>(Arrays.asList(0, 0, 0, 0));
-            for (String s : input) {
-                String[] splitted = s.split(" ");
-                String direction = splitted[0];
-                int steps = Integer.parseInt(splitted[1]);
+        for (String s : input) {
+            String[] splitted = s.split(" ");
+            String direction = splitted[0];
+            int steps = Integer.parseInt(splitted[1]);
 
-                int currentHeadLocationX = XY.get(0);
-                int currentHeadLocationY = XY.get(1);
-                int currentTailLocationX = XY.get(2);
-                int currentTailLocationY = XY.get(3);
+            int currentHeadLocationX = XY.get(0);
+            int currentHeadLocationY = XY.get(1);
+            int currentTailLocationX = XY.get(2);
+            int currentTailLocationY = XY.get(3);
 
-                for (int j = 0; j < steps; j++) {
-                    switch (direction) {
-                        case "R" -> currentHeadLocationX++;
-                        case "L" -> currentHeadLocationX--;
-                        case "U" -> currentHeadLocationY++;
-                        case "D" -> currentHeadLocationY--;
-                    }
-                    if (currentHeadLocationX - currentTailLocationX > 1) {
-                        currentTailLocationX++;
-                        currentTailLocationY = currentHeadLocationY;
-                    }
-                    if (currentTailLocationX - currentHeadLocationX > 1) {
-                        currentTailLocationX--;
-                        currentTailLocationY = currentHeadLocationY;
-                    }
-                    if (currentHeadLocationY - currentTailLocationY > 1) {
-                        currentTailLocationY++;
-                        currentTailLocationX = currentHeadLocationX;
-                    }
-                    if (currentTailLocationY - currentHeadLocationY > 1) {
-                        currentTailLocationY--;
-                        currentTailLocationX = currentHeadLocationX;
-                    }
-
-                    XY = new ArrayList<>(Arrays.asList(currentHeadLocationX, currentHeadLocationY, currentTailLocationX, currentTailLocationY));
-                    uniqueTailLocations.add(new ArrayList<>(Arrays.asList(currentTailLocationX, currentTailLocationY)));
-
+            for (int j = 0; j < steps; j++) {
+                switch (direction) {
+                    case "R" -> currentHeadLocationX++;
+                    case "L" -> currentHeadLocationX--;
+                    case "U" -> currentHeadLocationY++;
+                    case "D" -> currentHeadLocationY--;
                 }
+                if (currentHeadLocationX - currentTailLocationX > 1) {
+                    currentTailLocationX++;
+                    currentTailLocationY = currentHeadLocationY;
+                }
+                if (currentTailLocationX - currentHeadLocationX > 1) {
+                    currentTailLocationX--;
+                    currentTailLocationY = currentHeadLocationY;
+                }
+                if (currentHeadLocationY - currentTailLocationY > 1) {
+                    currentTailLocationY++;
+                    currentTailLocationX = currentHeadLocationX;
+                }
+                if (currentTailLocationY - currentHeadLocationY > 1) {
+                    currentTailLocationY--;
+                    currentTailLocationX = currentHeadLocationX;
+                }
+
+                XY = new ArrayList<>(Arrays.asList(currentHeadLocationX, currentHeadLocationY, currentTailLocationX, currentTailLocationY));
+                uniqueTailLocations.add(new ArrayList<>(Arrays.asList(currentTailLocationX, currentTailLocationY)));
+
             }
+        }
         return uniqueTailLocations.size();
 
     }
+
     private static int part2(List<String> input) {
         Set<List<Integer>> uniqueTailLocations = new HashSet<>();
         uniqueTailLocations.add(new ArrayList<>(Arrays.asList(0, 0)));
