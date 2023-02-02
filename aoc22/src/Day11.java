@@ -30,6 +30,24 @@ public class Day11 {
 
     private static int part1(List<String> input) {
         int pointer = 0;
+        createInitialMonkeys(input, pointer);
+        for (int i = 0; i < 20; i++) {
+            for (Monkey m : monkeys) {
+                inspect(m);
+            }
+        }
+
+        List<Integer> inspections = new ArrayList<>();
+        for (Monkey m : monkeys) {
+            inspections.add(m.getInspections());
+            System.out.println(m);
+        }
+        inspections.sort(Collections.reverseOrder());
+
+        return inspections.get(0) * inspections.get(1);
+    }
+
+    private static void createInitialMonkeys(List<String> input, int pointer) {
         Monkey monkey = new Monkey();
 
         for (int i = 0; i <= input.size(); i++) {
@@ -66,20 +84,6 @@ public class Day11 {
             pointer++;
         }
         monkeys.add(monkey);
-        for (int i = 0; i < 20; i++) {
-            for (Monkey m : monkeys) {
-                inspect(m);
-            }
-        }
-
-        List<Integer> inspections = new ArrayList<>();
-        for (Monkey m : monkeys) {
-            inspections.add(m.getInspections());
-            System.out.println(m);
-        }
-        inspections.sort(Collections.reverseOrder());
-
-        return inspections.get(0) * inspections.get(1);
     }
 
     private static void inspect(Monkey currentMonkey) {
