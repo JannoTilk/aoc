@@ -15,7 +15,7 @@ public class Day11 {
         s.close();
 
         long timeBefore1 = System.currentTimeMillis();
-        System.out.println(part1(list));
+        System.out.println(part1(list, 20));
         long timeAfter1 = System.currentTimeMillis();
         long elapsed1 = timeAfter1 - timeBefore1;
         System.out.println("elapsed:" + elapsed1);
@@ -28,10 +28,10 @@ public class Day11 {
 
     }
 
-    private static int part1(List<String> input) {
+    private static int part1(List<String> input, int rounds) {
         int pointer = 0;
         createInitialMonkeys(input, pointer);
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < rounds; i++) {
             for (Monkey m : monkeys) {
                 inspect(m);
             }
