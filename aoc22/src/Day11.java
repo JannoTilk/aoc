@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigInteger;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Day11 {
     static List<Monkey> monkeys = new ArrayList<>();
@@ -14,26 +16,27 @@ public class Day11 {
         }
         s.close();
 
-        long timeBefore1 = System.currentTimeMillis();
-        System.out.println(part1(list, 20));
-        long timeAfter1 = System.currentTimeMillis();
-        long elapsed1 = timeAfter1 - timeBefore1;
-        System.out.println("elapsed:" + elapsed1);
+//        long timeBefore1 = System.currentTimeMillis();
+//        System.out.println(part1(list, 20, true));
+//        long timeAfter1 = System.currentTimeMillis();
+//        long elapsed1 = timeAfter1 - timeBefore1;
+//        System.out.println("elapsed:" + elapsed1);
 
-//        long timeBefore2 = System.currentTimeMillis();
-//        part2(list);
-//        long timeAfter2 = System.currentTimeMillis();
-//        long elapsed2 = timeAfter2 - timeBefore2;
-//        System.out.println("elapsed:" + elapsed2);
+        long timeBefore2 = System.currentTimeMillis();
+        System.out.println(part1(list, 10000, false));
+        long timeAfter2 = System.currentTimeMillis();
+        long elapsed2 = timeAfter2 - timeBefore2;
+        System.out.println("elapsed:" + elapsed2);
 
     }
 
-    private static int part1(List<String> input, int rounds) {
+    private static long part1(List<String> input, int rounds, boolean isPartOne) {
         int pointer = 0;
         createInitialMonkeys(input, pointer);
+
         for (int i = 0; i < rounds; i++) {
             for (Monkey m : monkeys) {
-                inspect(m);
+                inspect(m, isPartOne);
             }
         }
 
@@ -44,7 +47,9 @@ public class Day11 {
         }
         inspections.sort(Collections.reverseOrder());
 
-        return inspections.get(0) * inspections.get(1);
+        System.out.println(inspections);
+
+        return (long) inspections.get(0) * inspections.get(1);
     }
 
     private static void createInitialMonkeys(List<String> input, int pointer) {
@@ -62,7 +67,7 @@ public class Day11 {
             }
             if (pointer == 1) {
                 String itemsStr = input.get(i).split(": ")[1];
-                List<Integer> items = new ArrayList<>(Arrays.stream(itemsStr.split("\\s*,\\s*")).map(Integer::parseInt).toList());
+                List<BigInteger> items = Arrays.stream(itemsStr.split("\\s*,\\s*")).map(BigInteger::new).collect(Collectors.toList());
                 monkey.setItems(items);
             }
             if (pointer == 2) {
@@ -86,13 +91,21 @@ public class Day11 {
         monkeys.add(monkey);
     }
 
-    private static void inspect(Monkey currentMonkey) {
-        List<Integer> copyOfItems = new ArrayList<>(currentMonkey.getItems());
-        for (int item : copyOfItems) {
+    private static void inspect(Monkey currentMonkey, boolean isPartOne) {
+        List<BigInteger> copyOfItems = new ArrayList<>(currentMonkey.getItems());
+        for (BigInteger item : copyOfItems) {
             currentMonkey.setInspections(currentMonkey.getInspections() + 1);
-            int newValue = operation(currentMonkey.getOperation(), item) / 3;
+            BigInteger newValue;
+            if (isPartOne) {
+                newValue = operation(currentMonkey.getOperation(), item).divide(BigInteger.valueOf(3));
+            } else {
+                // Mathematical hack to multiply all test divisions and use mod to reduce item worryLevels
+                BigInteger bigMod = monkeys.stream().map(Monkey::getDivisible).toList().stream().map(BigInteger::valueOf)
+                        .reduce(BigInteger.ONE, BigInteger::multiply);
+                newValue = operation(currentMonkey.getOperation(), item).mod(bigMod);
+            }
 
-            if (newValue % currentMonkey.getDivisible() == 0) {
+            if (newValue.mod(BigInteger.valueOf(currentMonkey.getDivisible())).equals(BigInteger.valueOf(0))) {
                 getMonkeyById(monkeys, currentMonkey.monkeyToThrowWhenConditionPassed).addItem(newValue);
                 currentMonkey.getItems().remove(0);
             } else {
@@ -102,18 +115,18 @@ public class Day11 {
         }
     }
 
-    private static int operation(String input, int old) {
-        int result = 0;
-        int secondNumber;
+    private static BigInteger operation(String input, BigInteger old) {
+        BigInteger result = BigInteger.valueOf(0);
+        BigInteger secondNumber;
         String[] parts = input.split(" ");
         if (parts[2].equals("old")) {
             secondNumber = old;
         } else {
-            secondNumber = Integer.parseInt(parts[2]);
+            secondNumber = new BigInteger(parts[2]);
         }
         switch (parts[1]) {
-            case "+" -> result = old + secondNumber;
-            case "*" -> result = old * secondNumber;
+            case "+" -> result = old.add(secondNumber);
+            case "*" -> result = old.multiply(secondNumber);
         }
         return result;
     }
@@ -124,7 +137,7 @@ public class Day11 {
 
     private static class Monkey {
         int id;
-        List<Integer> items;
+        List<BigInteger> items;
         int inspections;
         int divisible;
         int monkeyToThrowWhenConditionPassed;
@@ -140,15 +153,15 @@ public class Day11 {
             this.id = id;
         }
 
-        public List<Integer> getItems() {
+        public List<BigInteger> getItems() {
             return items;
         }
 
-        public void setItems(List<Integer> items) {
+        public void setItems(List<BigInteger> items) {
             this.items = items;
         }
 
-        public void addItem(Integer item) {
+        public void addItem(BigInteger item) {
             this.items.add(item);
         }
 
