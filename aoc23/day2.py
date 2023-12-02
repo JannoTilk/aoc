@@ -3,8 +3,8 @@ import re
 
 start = datetime.datetime.now()
 input = []
-summed = 0
-summed2 = 0
+_sum = 0
+_sum2 = 0
 red_max = 12
 green_max = 13
 blue_max = 14
@@ -22,11 +22,11 @@ for i in range(0, len(input)):
     red_count = max(int(item.split()[0]) for item in red)
     green_count = max(int(item.split()[0]) for item in green)
     if blue_count <= blue_max and red_count <= red_max and green_count <= green_max:
-        summed += i + 1
-    summed2 += (blue_count * red_count * green_count)
+        _sum += i + 1
+    _sum2 += (blue_count * red_count * green_count)
 
-print("Part 1: ", summed)
-print("Part 2: ", summed2)
+print("Part 1: ", _sum)
+print("Part 2: ", _sum2)
 
 end = datetime.datetime.now()
 print("\ntime: ")
