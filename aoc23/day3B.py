@@ -12,7 +12,7 @@ with open("day3.txt", 'r') as f:
 def is_gear(cell):
     return cell == "*"
 
-def get_adjacent_symbol_location(matrix, row_index, col_index, number_length):
+def get_adjacent_gear_location(matrix, row_index, col_index, number_length):
     for delta_row in range(-1, 2):
         for delta_col in range(-1, 2):
             # Skip the current cell itself
@@ -30,24 +30,24 @@ def get_adjacent_symbol_location(matrix, row_index, col_index, number_length):
                         return adjacent_row, adjacent_col
     return None
 
-_dict = {}
+gear_location_dict = {}
 
 # Find all numbers using regex
 for i, row in enumerate(_input):
     for match in re.finditer(r'\d+', row):
         number = int(match.group())
         start_index = match.start()
-        adjacent_coordinates = get_adjacent_symbol_location(_input, i, start_index, len(str(number)))
+        gear_coordinates = get_adjacent_gear_location(_input, i, start_index, len(str(number)))
 
-        if adjacent_coordinates:
-            key = tuple(adjacent_coordinates)
-            if key in _dict:
-                _dict[key].append(number)
+        if gear_coordinates:
+            key = tuple(gear_coordinates)
+            if key in gear_location_dict:
+                gear_location_dict[key].append(number)
             else:
-                _dict[key] = [number]
+                gear_location_dict[key] = [number]
 
-for key in _dict:
-    if len(_dict[key]) == 2:
-        _sum += _dict[key][0] * _dict[key][1]
+for key in gear_location_dict:
+    if len(gear_location_dict[key]) == 2:
+        _sum += gear_location_dict[key][0] * gear_location_dict[key][1]
 
 print(_sum)
