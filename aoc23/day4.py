@@ -1,3 +1,6 @@
+import datetime
+
+start = datetime.datetime.now()
 _input = []
 
 with open("day4.txt", 'r') as f:
@@ -39,3 +42,7 @@ def part2():
 
 print("Part 1: ", part1())
 print("Part 2: ", part2())
+
+end = datetime.datetime.now()
+print("\ntime: ")
+print(end - start)
