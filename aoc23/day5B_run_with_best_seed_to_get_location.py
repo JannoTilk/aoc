@@ -4,8 +4,8 @@ import sys
 start = datetime.datetime.now()
 _input = []
 
-# with open("day5.txt", 'r') as f:
-with open("day5_test.txt", 'r') as f:
+with open("day5.txt", 'r') as f:
+# with open("day5_test.txt", 'r') as f:
     for line in f.readlines():
         stripped_line = line.strip()
         if stripped_line:
@@ -13,9 +13,10 @@ with open("day5_test.txt", 'r') as f:
 
 _dict = {}
 seeds_string = _input[0].split("seeds: ")[1].split(" ")
-initial_seeds = [int(x) for x in seeds_string]
-# initial_seeds = [82, 82]
-
+# last output from day5B (wrong)
+# initial_seeds = [2561416828]
+# one before last output from day5B (correct)
+initial_seeds = [1949783811]
 
 current_map = ""
 for i in range(1, len(_input)):
@@ -28,17 +29,14 @@ for i in range(1, len(_input)):
 
 def map_parser(maps, seed):
     next_value = seed
-
     for i in range(0, len(maps)):
         if seed >= maps[i][1] and seed <= maps[i][1] + maps[i][2]:
             next_value = seed - maps[i][1] + maps[i][0]
             break
     return next_value
 
-def go_through_categories(_dict, seed):
+def go_through_gardening_mappings(_dict, seed):
     converted_value = seed
-    if seed == 82:
-        print("here")
     for key in _dict:
         converted_value = map_parser(_dict[key], converted_value)
     return converted_value
@@ -46,29 +44,12 @@ def go_through_categories(_dict, seed):
 def part1(seeds):
     location_min = sys.maxsize
     for i in range(len(seeds)):
-        location = go_through_categories(_dict, seeds[i])
+        location = go_through_gardening_mappings(_dict, seeds[i])
         if (location < location_min):
-            print("location: " + str(location) + " seed: " + str(seeds[i]))
             location_min = location
     return location_min
 
-def part2():
-    location_min = sys.maxsize
-    new_seeds = []
-    i = 0
-    while i < len(initial_seeds):
-        _start = initial_seeds[i]
-        _range = initial_seeds[i + 1]
-        for j in range(_range):
-            new_seeds.append(_start + j)
-        i += 2
-        print(new_seeds)
-
-    return part1(new_seeds)
-
-
 print(part1(initial_seeds))
-print(part2())
 
 end = datetime.datetime.now()
 print("\ntime: ")

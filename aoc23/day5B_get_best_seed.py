@@ -32,10 +32,9 @@ def generate_seed_start_end_pairs():
         start_end_pairs.append([_start, _end])
         i += 2
 generate_seed_start_end_pairs()
-def transform_map(_source_map):
+def backwards_transformation(_source_map):
     transformed_map = []
     for entry in _source_map:
-
         dest_start, src_start, length = entry
         offset = src_start - dest_start
         src_end = src_start + length - offset
@@ -49,8 +48,7 @@ def part2():
     global i
     for number_to_check in range(sys.maxsize):
         for i in range(len(source_map) - 1, -1, -1):
-
-            transformed = transform_map(source_map[i])
+            transformed = backwards_transformation(source_map[i])
 
             for j in range(len(transformed)):
                 if number_to_check >= transformed[j][0] and number_to_check <= transformed[j][1]:
@@ -60,7 +58,6 @@ def part2():
         for k in range(len(start_end_pairs)):
             if number_to_check >= start_end_pairs[k][0] and number_to_check <= start_end_pairs[k][1]:
                 return number_to_check
-
 
 print(part2())
 

@@ -13,10 +13,7 @@ with open("day5.txt", 'r') as f:
 
 _dict = {}
 seeds_string = _input[0].split("seeds: ")[1].split(" ")
-# initial_seeds = [2561416828]
-initial_seeds = [1949783811]
-# initial_seeds =  [int(x) for x in seeds_string]
-
+initial_seeds = [int(x) for x in seeds_string]
 
 current_map = ""
 for i in range(1, len(_input)):
@@ -50,7 +47,6 @@ def part1(seeds):
     return location_min
 
 def part2():
-    location_min = sys.maxsize
     new_seeds = []
     i = 0
     while i < len(initial_seeds):
@@ -61,9 +57,6 @@ def part2():
         i += 2
 
     return part1(new_seeds)
-
-
-
 
 print(part1(initial_seeds))
 # print(part2())
