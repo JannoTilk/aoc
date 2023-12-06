@@ -14,6 +14,7 @@ with open("day5_test.txt", 'r') as f:
 _dict = {}
 seeds_string = _input[0].split("seeds: ")[1].split(" ")
 initial_seeds = [int(x) for x in seeds_string]
+# initial_seeds = [82, 82]
 
 
 current_map = ""
@@ -27,13 +28,17 @@ for i in range(1, len(_input)):
 
 def map_parser(maps, seed):
     next_value = seed
+
     for i in range(0, len(maps)):
         if seed >= maps[i][1] and seed <= maps[i][1] + maps[i][2]:
             next_value = seed - maps[i][1] + maps[i][0]
+            break
     return next_value
 
 def go_through_categories(_dict, seed):
     converted_value = seed
+    if seed == 82:
+        print("here")
     for key in _dict:
         converted_value = map_parser(_dict[key], converted_value)
     return converted_value
@@ -43,6 +48,7 @@ def part1(seeds):
     for i in range(len(seeds)):
         location = go_through_categories(_dict, seeds[i])
         if (location < location_min):
+            print("location: " + str(location) + " seed: " + str(seeds[i]))
             location_min = location
     return location_min
 
@@ -56,6 +62,7 @@ def part2():
         for j in range(_range):
             new_seeds.append(_start + j)
         i += 2
+        print(new_seeds)
 
     return part1(new_seeds)
 

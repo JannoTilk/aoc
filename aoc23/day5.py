@@ -4,8 +4,8 @@ import sys
 start = datetime.datetime.now()
 _input = []
 
-# with open("day5.txt", 'r') as f:
-with open("day5_test.txt", 'r') as f:
+with open("day5.txt", 'r') as f:
+# with open("day5_test.txt", 'r') as f:
     for line in f.readlines():
         stripped_line = line.strip()
         if stripped_line:
@@ -13,7 +13,9 @@ with open("day5_test.txt", 'r') as f:
 
 _dict = {}
 seeds_string = _input[0].split("seeds: ")[1].split(" ")
-initial_seeds = [int(x) for x in seeds_string]
+# initial_seeds = [2561416828]
+initial_seeds = [1949783811]
+# initial_seeds =  [int(x) for x in seeds_string]
 
 
 current_map = ""
@@ -30,6 +32,7 @@ def map_parser(maps, seed):
     for i in range(0, len(maps)):
         if seed >= maps[i][1] and seed <= maps[i][1] + maps[i][2]:
             next_value = seed - maps[i][1] + maps[i][0]
+            break
     return next_value
 
 def go_through_gardening_mappings(_dict, seed):
@@ -63,7 +66,7 @@ def part2():
 
 
 print(part1(initial_seeds))
-print(part2())
+# print(part2())
 
 end = datetime.datetime.now()
 print("\ntime: ")
