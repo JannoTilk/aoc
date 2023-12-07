@@ -43,24 +43,17 @@ order_map = {char: index for index, char in enumerate(ordering)}
 def custom_sort_key(item):
     return [order_map.get(char, -1) for char in item[0]]
 
-data = _dict
+sorted_dict = {key: sorted(value, key=custom_sort_key, reverse=True) for key, value in _dict.items()}
 
-sorted_data = {key: sorted(value, key=custom_sort_key, reverse=True) for key, value in data.items()}
-
-print(sorted_data["all_different"])
 i = 1
 _sum = 0
 for hand_type in hand_ordering:
-    # print(hand_type)
-    for hand in sorted_data[hand_type]:
-        print(hand)
-        print(int(hand[1]))
+    for hand in sorted_dict[hand_type]:
         winning = int(hand[1]) * i
         _sum += winning
         i += 1
 
 print(_sum)
-print(i)
 
 end = datetime.datetime.now()
 print("\ntime: ")
