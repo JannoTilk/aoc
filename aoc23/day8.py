@@ -1,5 +1,4 @@
 from collections import defaultdict
-from collections import Counter
 import datetime
 
 start = datetime.datetime.now()
@@ -22,7 +21,7 @@ for map in range(1, len(_input)):
     right = _input[map].split(" = ")[1].split(", ")[1][:-1]
     _dict[begin] = [left, right]
 
-current_location = "DNA"
+current_location = "AAA"
 steps = 0
 index = 0
 length = len(lr_instructions)
