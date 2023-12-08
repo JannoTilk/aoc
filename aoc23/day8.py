@@ -32,7 +32,6 @@ while current_location != "ZZZ":
         current_location = _dict[current_location][0]
     else:
         current_location = _dict[current_location][1]
-
     steps += 1
     index += 1
 
