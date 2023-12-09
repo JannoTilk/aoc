@@ -28,10 +28,9 @@ def generate_next_number(history_test):
         history_test = new_history
         last_element = 0
         if len(set(new_history)) == 1 and new_history[0] == 0:
-            for i in range(len(histories) - 2, 0, -1):
-                new_last_element = last_element + histories[i][-1]
+            for i in range(len(histories) - 2, -1, -1):
+                new_last_element = histories[i][0] - last_element
                 last_element = new_last_element
-            last_element = histories[0][-1] + last_element
             break
     return last_element
 _sum = 0
@@ -45,4 +44,5 @@ print(_sum)
 end = datetime.datetime.now()
 print("\ntime: ")
 print(end - start)
+
 
