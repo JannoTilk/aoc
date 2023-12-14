@@ -8,9 +8,10 @@ start = datetime.datetime.now()
 _input = []
 
 # Read the file and convert each line into a list of characters
-# with open("day14.txt", 'r') as f:
-with open("day14_test.txt", 'r') as f:
+with open("day14.txt", 'r') as f:
+# with open("day14_test.txt", 'r') as f:
 # with open("day14_test2.txt", 'r') as f:
+# with open("14input.txt", 'r') as f:
     for line in f.readlines():
         stripped_line = line.strip()
         if stripped_line:
@@ -29,8 +30,6 @@ total_sum = 0
 
 def calc(total, cube_location, round_rocks):
     sub_sum = 0
-    if cube_location > 0:
-        cube_location += 1
     for i in range(round_rocks):
         sub_sum += total - cube_location - i
     return sub_sum
@@ -38,14 +37,14 @@ def calc(total, cube_location, round_rocks):
 for i in range(0, len(transposed_input)):
     print("transposed_input[i]:", transposed_input[i])
     _counter = 0
-    cube_location = 0
+    cube_location = -1
     for j in range(len(transposed_input[i])):
         current = transposed_input[i][j]
         if current == "O":
             _counter += 1
         elif current == "#":
             if _counter > 0:
-                sub_sum = calc(total_rows, cube_location, _counter)
+                sub_sum = calc(total_rows, cube_location + 1, _counter)
                 total_sum += sub_sum
                 _counter = 0
             cube_location = j
@@ -53,7 +52,11 @@ for i in range(0, len(transposed_input)):
         else:
             continue
     if _counter > 0:
-        sub_sum = calc(total_rows, cube_location, _counter)
+        sub_sum = calc(total_rows, cube_location + 1, _counter)
         total_sum += sub_sum
 
 print("total_sum: ", total_sum)
+
+end = datetime.datetime.now()
+print("\ntime: ")
+print(end - start)
